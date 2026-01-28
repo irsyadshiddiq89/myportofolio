@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — IRSYAD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --burgundy: #4a040e;
+            --cream: #eaddcf;
+            --black: #0f0f0f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
+        body {
+            background-color: var(--cream);
+            color: var(--burgundy);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- TEXTURE & CURSOR --- */
+        .grain-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9000; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .cursor-dot { width: 8px; height: 8px; background: var(--burgundy); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%); }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--burgundy); position: fixed; border-radius: 50%; z-index: 9998; pointer-events: none; transform: translate(-50%, -50%); transition: all 0.15s ease-out; }
+
+        /* --- NAVIGASI --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; position: fixed; width: 100%; top: 0; z-index: 100;
+            background: rgba(234, 221, 207, 0.9); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(74, 4, 14, 0.1);
+        }
+        .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
+        .menu a { text-decoration: none; color: var(--burgundy); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
+
+        /* --- CONTENT SECTION --- */
+        .contact-section {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 0; /* Hilangkan padding agar warna Burgundy mentok ke pinggir */
+            margin-top: 80px; /* Jarak untuk Navbar */
+            min-height: calc(100vh - 80px);
+        }
+
+        .contact-info {
+            padding: 60px 40px; /* Pindahkan padding ke dalam sini */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info h1 {
+            font-family: 'Syne';
+            font-size: clamp(3rem, 6vw, 5rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            margin-bottom: 2.5rem;
+        }
+
+        .detail-item label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .detail-item p, .detail-item a {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            text-decoration: none;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--burgundy);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-fill {
+            background: var(--burgundy);
+            color: var(--cream);
+        }
+
+        .btn-fill:hover {
+            background: transparent;
+            color: var(--burgundy);
+        }
+
+        /* --- SOCIAL LINKS --- */
+       .social-grid {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 4rem;
+            justify-content: center;
+            height: 100%;
+            background-color: var(--burgundy); /* Dominan Burgundy */
+            overflow: hidden;
+            border-left: none; /* Hilangkan garis karena sudah beda warna */
+        }
+
+
+        .social-link {
+            font-family: 'Syne';
+            font-size: clamp(1rem, 4vw, 3rem); /* Ukuran lebih terkontrol */
+            text-decoration: none;
+            color: var(--cream); /* Teks jadi warna Cream terang */
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            z-index: 2;
+            line-height: 1.1;
+        }
+
+       .social-link:hover {
+            padding-left: 20px;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--cream);
+        }
+
+
+        /* TAMBAHKAN INI DI BAWAH */
+        .social-grid::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            border: 20px solid rgba(74, 4, 14, 0.03);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Garis diagonal dekoratif */
+        .social-grid::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(234, 221, 207, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 1;
+        }
+        
+        footer {
+            padding: 2rem 40px;
+            border-top: 1px solid rgba(74, 4, 14, 0.1);
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0.6;
+            font-weight: 500;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .contact-section { grid-template-columns: 1fr; padding-top: 100px; gap: 2rem; }
+            .social-grid { border-left: none; padding-left: 0; border-top: 1px solid rgba(74, 4, 14, 0.2); padding-top: 2rem; }
+            .social-link { font-size: 2rem; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain-overlay"></div>
+    <div class="cursor-dot" id="dot"></div>
+    <div class="cursor-outline" id="outline"></div>
+
+    <nav>
+        <div class="logo">PORTOFOLIO.</div>
+        <div class="menu"><a href="index.html">Back Home</a></div>
+    </nav>
+
+    <main class="contact-section">
+        <div class="contact-info" data-aos="fade-right">
+            <h1>Start a<br>Conversation.</h1>
+            
+            <div class="detail-item">
+                <label>Email Address</label>
+                <a href="m.irsyadshiddiq@gmail.com">m.irsyadshiddiq@gmail.com</a>
+            </div>
+
+            <div class="detail-item">
+                <label>Current Location</label>
+                <p>Tasikmalaya, West Java, Indonesia</p>
+            </div>
+
+            <div class="detail-item">
+                <label>Identification</label>
+                <p>Muhammad Irsyad Shiddiq</p>
+            </div>
+
+            <div class="detail-item">
+                <label>phone</label>
+                <p>+6282117243431</p>
+            </div>
+
+            <div class="btn-group">
+                <a href="cv-irsyad.pdf" download class="btn btn-fill">
+                    Download CV 
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="social-grid" data-aos="fade-left">
+            <a href="https://www.linkedin.com/in/mirsyadshiddiq09" class="social-link">LinkedIn</a>
+            <a href="#" class="social-link">GitHub</a>
+            <a href="#" class="social-link">Instagram</a>
+        </div>
+    </main>
+
+    <footer>© 2026 Muhammad Irsyad Shiddiq. All Rights Reserved.</footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        const dot = document.getElementById('dot');
+        const outline = document.getElementById('outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            dot.style.left = `${posX}px`;
+            dot.style.top = `${posY}px`;
+            outline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+        });
+
+        document.querySelectorAll('a, .btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                outline.style.transform = "translate(-50%, -50%) scale(1.5)";
+                outline.style.background = "rgba(74, 4, 14, 0.05)";
+            });
+            el.addEventListener('mouseleave', () => {
+                outline.style.transform = "translate(-50%, -50%) scale(1)";
+                outline.style.background = "transparent";
+            });
+        });
+    </script>
+</body>
+</html>

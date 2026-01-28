@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Burgundy Edition</title>
+    <style>
+        /* --- PALET WARNA BARU --- */
+        :root {
+            --burgundy: #630d16;    /* Burgundy Tua untuk elemen utama */
+            --burgundy-light: #8a1c28; 
+            --cream: #f5f5dc;       /* Cream untuk latar belakang agar teks terbaca jelas */
+            --text-black: #1a1a1a;
+            --white: #ffffff;
+        }
+
+        /* --- RESET & TYPOGRAPHY --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--cream);
+            color: var(--text-black);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { text-transform: uppercase; letter-spacing: -1px; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 3px solid var(--text-black);
+            background: var(--burgundy); /* Navigasi kontras tinggi */
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--cream); }
+        
+        .menu a {
+            text-decoration: none;
+            color: var(--cream);
+            font-weight: 700;
+            margin-left: 2rem;
+            transition: opacity 0.3s;
+        }
+        
+        .menu a:hover { opacity: 0.7; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 90vh;
+            align-items: center;
+            border-bottom: 3px solid var(--text-black);
+        }
+
+        .hero-text {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-text h1 {
+            font-size: 5rem;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+            color: var(--burgundy);
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        /* --- KONTINER TOMBOL (SAMPING) --- */
+        .button-group {
+            display: flex;       /* Susunan horizontal */
+            flex-direction: row; 
+            gap: 20px;           /* Jarak antar tombol */
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--burgundy);
+            color: var(--cream);
+            padding: 1.2rem 2.2rem;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 3px solid var(--text-black);
+            box-shadow: 6px 6px 0px var(--text-black); /* Efek Neo-Brutalism */
+            transition: all 0.2s;
+        }
+
+        .cta-btn:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 10px 10px 0px var(--text-black);
+            background-color: var(--burgundy-light);
+        }
+
+        .cta-btn.outline {
+            background: transparent;
+            color: var(--text-black);
+        }
+
+        /* --- IMAGE CONTAINER --- */
+        .hero-image {
+            height: 100%;
+            width: 100%;
+            border-left: 3px solid var(--text-black);
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-image { order: -1; height: 50vh; border-left: none; border-bottom: 3px solid var(--text-black); }
+            .hero-text h1 { font-size: 3.5rem; }
+            .button-group { flex-direction: column; width: 100%; }
+            .cta-btn { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PORTFOLIO.</div>
+        <div class="menu">
+            <a href="#">WORK</a>
+            <a href="#">CONTACT</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Creative<br>Visual<br>Artist</h1>
+            <p>Versatile Developer dedicated to creating engaging digital experiences through creative coding and game mechanics.</p>
+            
+            <div class="button-group">
+                <a href="#" class="cta-btn">SEE PROJECTS</a>
+                <a href="#" class="cta-btn outline">LETS CONNECT</a>
+            </div>
+        </div>
+        
+        <div class="hero-image">
+            <img src="Gemini_Generated_Image_ri5qvlri5qvlri5q.png" alt="Portrait">
+        </div>
+    </section>
+
+</body>
+</html>
